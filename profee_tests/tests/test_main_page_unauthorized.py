@@ -6,14 +6,30 @@ def test_too_small_sender_amount():
     .open_main_url()\
     .preconditions_met()\
     .type_from_amount('5')\
-    .too_small_amount()
+    .should_too_small_amount()
 
 def test_too_large_sender_amount():
     MainPageUnauthorized()\
     .open_main_url()\
     .preconditions_met()\
     .type_from_amount('15001')\
-    .too_large_amount()
+    .should_too_large_amount()
+
+def test_india_promo_less1100eur():
+    MainPageUnauthorized()\
+    .open_main_url()\
+    .preconditions_met() \
+    .chose_to_country('Индия')\
+    .should_promo_terms_is_visible()
+
+def test_india_no_promo_more1100eur():
+    MainPageUnauthorized()\
+    .open_main_url()\
+    .preconditions_met()\
+    .type_from_amount('1101') \
+    .chose_to_country('Индия')\
+    .should_promo_terms_is_not_visible()
+
 
 
 
