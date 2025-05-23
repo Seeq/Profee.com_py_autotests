@@ -11,6 +11,8 @@ class MainPageUnauthorized:
         self.send_to_amount = browser.element('#to_amount')
         self.type_to_country_name = browser.element('#to_country')
         self.start_button = browser.element('#calculator_send_button')
+        self.login_button = browser.element('#header_log_in_button')
+        self.enter_button = browser.element('#header_sing_up_button')
 
     @allure.step('Open main URL')
     def open_main_url(self):
@@ -51,6 +53,16 @@ class MainPageUnauthorized:
     @allure.step('Tap Start button')
     def tap_start_button(self):
         self.start_button.click()
+        return self
+
+    @allure.step('Tap Start button')
+    def tap_login_button(self):
+        self.login_button.click()
+        return self
+
+    @allure.step('Tap enter button')
+    def tap_enter_button(self):
+        self.enter_button.click()
         return self
 
     @allure.step('Too small amount error')
