@@ -30,6 +30,17 @@ def test_india_no_promo_more1100eur():
     .chose_to_country('Индия')\
     .should_promo_terms_is_not_visible()
 
+def test_redirect_to_auth_page():
+    MainPageUnauthorized()\
+    .open_main_url()\
+    .preconditions_met() \
+    .tap_start_button() \
+    .auth_page_check_text()
+
+
+
+
+
 
 
 

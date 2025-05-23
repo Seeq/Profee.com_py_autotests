@@ -10,6 +10,7 @@ class MainPageUnauthorized:
         self.send_from_amount = browser.element('#from_amount')
         self.send_to_amount = browser.element('#to_amount')
         self.type_to_country_name = browser.element('#to_country')
+        self.start_button = browser.element('#calculator_send_button')
 
     @allure.step('Open main URL')
     def open_main_url(self):
@@ -18,7 +19,7 @@ class MainPageUnauthorized:
 
     @allure.step('Page loaded')
     def preconditions_met(self):
-        self.send_from_amount.with_(timeout=10).should(be.visible)
+        self.send_from_amount.with_(timeout=20).should(be.visible)
         return self
 
     @allure.step('Chose from country')
@@ -47,6 +48,11 @@ class MainPageUnauthorized:
         self.send_to_amount.click.type(amount).press_enter()
         return self
 
+    @allure.step('Tap Start button')
+    def tap_start_button(self):
+        self.start_button.click()
+        return self
+
     @allure.step('Too small amount error')
     def should_too_small_amount(self):
         browser.element('.pfx-input__error').should(have.text('Не менее 5,85 EUR'))
@@ -60,10 +66,19 @@ class MainPageUnauthorized:
     @allure.step('promorate block is visible')
     def should_promo_terms_is_visible(self):
         browser.element('.PromoCurrencyRateMessage_badge__content__o2lfr').should(be.visible)
+        return self
 
     @allure.step('promorate block is not visible')
     def should_promo_terms_is_not_visible(self):
         browser.element('.PromoCurrencyRateMessage_badge__content__o2lfr').should(be.not_.visible)
+        return self
+
+    @allure.step('Auth page loaded')
+    def auth_page_check_text(self):
+        browser.element('#phone_form').with_(timeout=10).should(be.visible)
+        browser.element('#phone_form').should(have.text('Создайте аккаунт или войдите'))
+        return self
+
 
 
 
