@@ -49,6 +49,18 @@ def test_redirect_to_auth_page_from_enter_button():
     .tap_enter_button() \
     .auth_page_check_text()
 
+def test_change_language_to_en():
+    MainPageUnauthorized()\
+    .open_main_url() \
+    .preconditions_met() \
+    .tap_language_button() \
+    .select_english() \
+    .should_be_en()
+
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 from selene import browser, be, have
 import os
 import allure
+from time import sleep
 from selenium.webdriver.common.keys import Keys
 
 class MainPageUnauthorized:
@@ -13,6 +14,7 @@ class MainPageUnauthorized:
         self.start_button = browser.element('#calculator_send_button')
         self.login_button = browser.element('#header_log_in_button')
         self.enter_button = browser.element('#header_sing_up_button')
+        self.language_button = browser.element('.PromoLanguageSwitcherModern_languageSwitcher__dropdown__rOsUG')
 
     @allure.step('Open main URL')
     def open_main_url(self):
@@ -65,6 +67,17 @@ class MainPageUnauthorized:
         self.enter_button.click()
         return self
 
+    @allure.step('Tap language section')
+    def tap_language_button(self):
+        self.language_button.should(be.clickable).click()
+        return self
+
+    @allure.step('Select English language')
+    def select_english(self):
+        browser.element('a[href="/"]').click()
+        return self
+
+
     @allure.step('Too small amount error')
     def should_too_small_amount(self):
         browser.element('.pfx-input__error').should(have.text('Не менее 5,85 EUR'))
@@ -83,6 +96,11 @@ class MainPageUnauthorized:
     @allure.step('promorate block is not visible')
     def should_promo_terms_is_not_visible(self):
         browser.element('.PromoCurrencyRateMessage_badge__content__o2lfr').should(be.not_.visible)
+        return self
+
+    @allure.step('Page On English')
+    def should_be_en(self):
+        browser.element('#calculator_send_button').should(have.text('GET STARTED'))
         return self
 
     @allure.step('Auth page loaded')
