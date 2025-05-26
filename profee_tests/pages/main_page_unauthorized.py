@@ -56,6 +56,8 @@ class MainPageUnauthorized:
     @allure.step('Tap Start button')
     def tap_start_button(self):
         self.start_button.click()
+        if skip_if_cloudflare_captcha():
+            return
         return self
 
     @allure.step('Tap Start button')
@@ -110,7 +112,17 @@ class MainPageUnauthorized:
         browser.element('#phone_form').should(have.text('Создайте аккаунт или войдите'))
         return self
 
-
+@allure.step('Проверка, что не появилась капча Cloudflare')
+def skip_if_cloudflare_captcha():
+    if browser.element('#cf-captcha-container').matching(be.visible):
+        allure.attach(
+            browser.driver.page_source,
+            name='captcha_html',
+            attachment_type=allure.attachment_type.HTML
+        )
+        print('Cloudflare captcha detected. Skipping test logic.')
+        return True
+    return False
 
 
 
