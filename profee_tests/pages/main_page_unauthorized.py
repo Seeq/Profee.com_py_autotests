@@ -3,6 +3,7 @@ import os
 import allure
 from time import sleep
 from selenium.webdriver.common.keys import Keys
+import platform
 
 class MainPageUnauthorized:
     def __init__(self):
@@ -42,7 +43,7 @@ class MainPageUnauthorized:
     @allure.step('Type from amount')
     def type_from_amount(self, amount):
         self.send_from_amount.click()
-        self.send_from_amount.send_keys(Keys.COMMAND, 'a')  # для Windows/Linux
+        self.send_from_amount.send_keys(Keys.CONTROL, 'a')
         self.send_from_amount.send_keys(Keys.DELETE)
         self.send_from_amount.type(str(amount) + Keys.ENTER)
         return self
